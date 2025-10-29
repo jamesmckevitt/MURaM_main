@@ -130,9 +130,11 @@ void eos_init(GridData& Grid, RunData& Run, const PhysicsData& Physics) {
   for (i=0; i<N_eps; i++) {
     xeps[i] = eps0 + del_eps * ((double) i);
   }
+#pragma acc enter data copyin(xeps[:N_eps])
   for (i=0; i<N_lr;  i++) {
     xlr[i] =  lr0 + del_lr * ((double) i);
   }
+#pragma acc enter data copyin(xlr[:N_lr])
 
   //Define logp and entropy axes values.
   del_lp3 = (lp1-lp0)/(double (N_lp3-1));
